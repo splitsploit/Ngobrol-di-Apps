@@ -9,6 +9,16 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+
+    public function checkHomePage()
+    {
+        if(auth()->check()) {
+            return view('homepage-feed');
+        } else {
+            return view('homepage');
+        }
+    }
+
     public function register(Request $request)
     {
         $data = $request->validate([
@@ -36,10 +46,12 @@ class UserController extends Controller
         //     return "Login gagal";
         // }
 
-        if (auth()->attempt(['username' => $data['loginusername'], 'password' => $data['loginpassword']])){
+        if (auth()->attempt(['username' => $data['loginusername'], 'password' => $data['loginpassword']]))
+        {
+            $request->session()->regenerate();
             return "Login sukses";
         } else {
-            return "login berhasil";
+            return "login gagal";
         }
     }
 }
