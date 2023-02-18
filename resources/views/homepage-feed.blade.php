@@ -1,4 +1,9 @@
 <x-layout>
+
+  @section('title')
+    {{ Auth::user()->username }}
+  @endsection
+
     <div class="container py-md-5 container--narrow">
         <div class="text-center">
           <h2>Hello <strong>{{ Auth::user()->username }}</strong>, your feed is empty.</h2>
