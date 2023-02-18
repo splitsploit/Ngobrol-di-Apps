@@ -8,5 +8,6 @@ Route::get('/', [UserController::class, 'checkHomePage']);
 Route::get('/single-post', [ExampleController::class, 'singlePost']);
 
 Route::post('/register', [UserController::class, 'register']);
-Route::post('/login', [UserController::class, 'login']);;
+Route::post('/login', [UserController::class, 'login']);
+Route::post('/logout', [UserController::class, 'logout']);
 

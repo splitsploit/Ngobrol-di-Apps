@@ -54,4 +54,11 @@ class UserController extends Controller
             return "login gagal";
         }
     }
+
+    public function logout()
+    {
+        Auth::logout();
+
+        return 'Logout Success!';
+    }
 }
