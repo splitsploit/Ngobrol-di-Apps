@@ -49,9 +49,9 @@ class UserController extends Controller
         if (auth()->attempt(['username' => $data['loginusername'], 'password' => $data['loginpassword']]))
         {
             $request->session()->regenerate();
-            return "Login sukses";
+            return redirect('/')->with('success', "Anda Berhasil Login!");
         } else {
-            return "login gagal";
+            return redirect('/')->with('error', 'Login Gagal, Harap Periksa Lagi Username / Password!');
         }
     }
 
@@ -59,6 +59,6 @@ class UserController extends Controller
     {
         Auth::logout();
 
-        return 'Logout Success!';
+        return redirect('/')->with('success', 'Anda Berhasil Logout!');
     }
 }

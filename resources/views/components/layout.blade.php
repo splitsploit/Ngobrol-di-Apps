@@ -49,6 +49,24 @@
     </header>
     <!-- header ends here -->
 
+    @if (Session::has('success'))
+        <div class="container container--narrw">
+          <div class="alert alert-success text-center">
+            {{ Session('success') }}
+          </div>
+        </div>
+    @endif
+
+    {{-- Session()->has('error') | Session::has('error') --}}
+    
+    @if (Session()->has('error'))
+    <div class="container container--narrw">
+      <div class="alert alert-danger text-center">
+        {{ Session('error') }}
+      </div>
+    </div>
+    @endif
+
     {{ $slot }}
 
     <!-- footer begins -->
