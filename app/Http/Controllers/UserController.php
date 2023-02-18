@@ -27,9 +27,11 @@ class UserController extends Controller
             'password' => ['required', 'min:8', 'confirmed'],
         ]);
 
-        User::create($data);
+        $user = User::create($data);
 
-        return view('success');
+        Auth::login($user);
+
+        return redirect('/')->with('success', 'Daftar Akun Berhasil!. Selamat Berkomunikasi di Ngobrol di Apps!');
     }
 
     public function login(Request $request)
