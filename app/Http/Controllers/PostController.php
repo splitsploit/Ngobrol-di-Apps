@@ -24,8 +24,14 @@ class PostController extends Controller
         $data['body'] = strip_tags($data['body']);
         $data['user_id'] = Auth::id();
 
-        Post::create($data);
+        $newPost = Post::create($data);
         
-        return 'Post Berhasil di Publish';
+        return redirect("post/{$newPost->id}")->with('success', 'Postingan Berhasil Dipublish!');
+    }
+
+    public function viewSinglePost(Post $post)
+    {
+        // return view('single-post', ['post' => $post]);
+        return view('single-post', compact('post'));
     }
 }
