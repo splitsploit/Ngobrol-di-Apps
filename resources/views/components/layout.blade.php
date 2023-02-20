@@ -50,7 +50,7 @@
     <!-- header ends here -->
 
     @if (Session::has('success'))
-        <div class="container container--narrw">
+        <div class="container container--narrow">
           <div class="alert alert-success text-center">
             {{ Session('success') }}
           </div>
