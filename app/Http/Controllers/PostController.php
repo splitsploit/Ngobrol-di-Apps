@@ -42,4 +42,16 @@ class PostController extends Controller
         // return view('single-post', ['post' => $post]);
         return view('single-post', compact('post'));
     }
+
+    public function delete(Post $post) {
+        
+        // delete post using PostPolicy ( cannot method )
+        if(auth()->user()->cannot('delete', $post)) {
+            return "Hanya Pembuat Post Yang Boleh Menghapus!";
+        }
+
+        $post->delete();
+
+        return redirect('/profile/' . auth()->user()->username)->with('success', 'Berhasil Hapus Post!');
+    }
 }
