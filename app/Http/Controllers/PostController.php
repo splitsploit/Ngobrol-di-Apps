@@ -46,9 +46,9 @@ class PostController extends Controller
     public function delete(Post $post) {
         
         // delete post using PostPolicy ( cannot method )
-        if(auth()->user()->cannot('delete', $post)) {
-            return "Hanya Pembuat Post Yang Boleh Menghapus!";
-        }
+        // if(auth()->user()->cannot('delete', $post)) {
+        //     return "Hanya Pembuat Post Yang Boleh Menghapus!";
+        // }
 
         $post->delete();
 
