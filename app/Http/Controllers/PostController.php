@@ -32,6 +32,11 @@ class PostController extends Controller
 
     public function viewSinglePost(Post $post)
     {
+        // check author or not ( at post )
+        // if($post->user_id === auth()->user()->id) {
+        //     return "You are author!";
+        // } return "You are not author!"; 
+
         $post['body'] = Str::markdown($post->body);
 
         // return view('single-post', ['post' => $post]);
