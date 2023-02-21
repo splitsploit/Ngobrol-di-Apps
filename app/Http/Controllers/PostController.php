@@ -54,4 +54,22 @@ class PostController extends Controller
 
         return redirect('/profile/' . auth()->user()->username)->with('success', 'Berhasil Hapus Post!');
     }
+
+    public function edit(Post $post) {
+        return view('edit-post', compact('post'));
+    }
+
+    public function update(Post $post, Request $request) {
+        $data = $request->validate([
+            'title' => 'required',
+            'body' => 'required'
+        ]);
+
+        $data['title'] = strip_tags($data['title']);
+        $data['body'] = strip_tags($data['body']);
+
+        $post->update($data);
+
+        return back()->with('success', 'Post Berhasil di Update!');
+    }
 }
