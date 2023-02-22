@@ -1,9 +1,14 @@
 <?php
 
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Route;
 
+
+Route::get('admins-only', function() {
+    return "You Are Admin!";
+})->middleware('can:visitAdminPages');
 
 // User Routes
 Route::get('/', [UserController::class, 'checkHomePage'])->name('login');
