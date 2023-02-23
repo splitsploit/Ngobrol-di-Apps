@@ -77,7 +77,8 @@ class UserController extends Controller
         return view('avatar-form');
     }
 
-    public function storeAvatar() {
-        
+    public function storeAvatar(Request $request) {
+        $request->file('avatar')->store('test');
+        return 'Success';
     }
 }
