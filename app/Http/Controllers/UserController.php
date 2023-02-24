@@ -88,13 +88,16 @@ class UserController extends Controller
         // $request->file('avatar')->store('public/avatar');
 
         // format saved avatar
-        $user = Auth::user();
+        $user = auth()->user();
 
         $fileName = $user->id . '-' . uniqid() . '.jpg';
 
         // store avatar ( resize )
         $imgData = Image::make($request->file('avatar'))->fit(120)->encode('jpg');
-        Storage::put('public/avatar/' . $fileName, $imgData);
+        Storage::put('public/avatars/' . $fileName, $imgData);
+
+        $user->avatar = $fileName;
+        $user->save();
 
         return back()->with('success', 'Berhasil Upload Avatar');
     }
