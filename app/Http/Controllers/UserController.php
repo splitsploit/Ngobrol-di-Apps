@@ -101,8 +101,14 @@ class UserController extends Controller
         $imgData = Image::make($request->file('avatar'))->fit(120)->encode('jpg');
         Storage::put('public/avatars/' . $fileName, $imgData);
 
+        $oldAvatar = $user->avatar;
+
         $user->avatar = $fileName;
         $user->save();
+
+        if($oldAvatar != 'default-avatar.jpg') {
+            Storage::delete(str_replace('/storage/', 'public/', $oldAvatar));
+        };
 
         return back()->with('success', 'Berhasil Upload Avatar');
     }
