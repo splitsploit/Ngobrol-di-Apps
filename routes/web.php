@@ -31,6 +31,8 @@ Route::put('/post/{post}', [PostController::class, 'update'])->middleware('can:u
 
 // lookup user by username, not an id
 Route::get('/profile/{user:username}', [UserController::class, 'profile']);
+Route::get('/profile/{user:username}/followers', [UserController::class, 'profileFollowers']);
+Route::get('/profile/{user:username}/followings', [UserController::class, 'profileFollowings']);
 
 // Follow / Following Routes
 

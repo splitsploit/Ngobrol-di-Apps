@@ -29,14 +29,14 @@
           </h2>
     
           <div class="profile-nav nav nav-tabs pt-2 mb-4">
-            <a href="#" class="profile-nav-link nav-item nav-link active">Posts: {{ $postCount }}</a>
-            <a href="#" class="profile-nav-link nav-item nav-link">Followers: 3</a>
-            <a href="#" class="profile-nav-link nav-item nav-link">Following: 2</a>
+            <a href="/profile/{{ $username }}" class="profile-nav-link nav-item nav-link active">Posts: {{ $postCount }}</a>
+            <a href="/profile/{{ $username }}/followers" class="profile-nav-link nav-item nav-link">Followers: 3</a>
+            <a href="/profile/{{ $username }}/followings" class="profile-nav-link nav-item nav-link">Following: 2</a>
           </div>
 
           <div class="profile-slot-content">
             {{ $slot }}
           </div>
-          
+
         </div>
   </x-layout>
