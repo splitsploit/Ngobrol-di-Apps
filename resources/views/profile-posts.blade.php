@@ -7,7 +7,8 @@
     <div class="container py-md-5 container--narrow">
         <h2>
           <img class="avatar-small" src="{{ $avatar }}" /> {{ $username }}
-          <form class="ml-2 d-inline" action="#" method="POST">
+          <form class="ml-2 d-inline" action="/create-follow/{{ $username }}" method="POST">
+            @csrf
             <button class="btn btn-primary btn-sm">Follow <i class="fas fa-user-plus"></i></button>
             @if (auth()->user()->username == $username)
                 <a href="/manage-avatar" class="btn btn-secondary btn-sm">Manage Avatar</a>

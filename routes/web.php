@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FollowController;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
@@ -27,4 +28,12 @@ Route::get('/post/{post}/edit', [PostController::class, 'edit'])->middleware('ca
 Route::put('/post/{post}', [PostController::class, 'update'])->middleware('can:update,post');
 
 // Profile Routes
+
+// lookup user by username, not an id
 Route::get('/profile/{user:username}', [UserController::class, 'profile']);
+
+// Follow / Following Routes
+
+// lookup user by username, not an id
+Route::post('/create-follow/{user:username}', [FollowController::class, 'createFollow'])->middleware('mustBeLoggedIn');
+Route::post('/remove-follow/{user:username}', [FollowController::class, 'removeFollow'])->middleware('mustBeLoggedIn');
