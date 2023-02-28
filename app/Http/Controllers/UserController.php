@@ -83,7 +83,9 @@ class UserController extends Controller
             'currentlyFollowing' => $currentlyFollowing,
             'username' => $user->username,
             'avatar' => $user->avatar, 
-            'postCount' => $user->posts()->count() 
+            'postCount' => $user->posts()->count(),
+            'followerCount' => $user->followers()->count(),
+            'followingCount' => $user->followingTheseUsers()->count(),  
         ]);
     }
 
