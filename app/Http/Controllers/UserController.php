@@ -102,9 +102,11 @@ class UserController extends Controller
 
         $this->getSharedData($user);
 
+        // return $user->followers()->latest()->get();
+
         return view('profile-followers', 
         [
-            'posts' => $user->posts()->latest()->get(), 
+            'followers' => $user->followers()->latest()->get(), 
         ]);
     
     }
@@ -115,7 +117,7 @@ class UserController extends Controller
 
         return view('profile-followings', 
         [
-            'posts' => $user->posts()->latest()->get(), 
+            'followings' => $user->followingTheseUsers()->latest()->get(), 
         ]);
     
     }
