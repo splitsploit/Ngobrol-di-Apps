@@ -72,4 +72,13 @@ class PostController extends Controller
 
         return back()->with('success', 'Post Berhasil di Update!');
     }
+
+    public function search($query) {
+        $posts = Post::search($query)->get();
+
+        // call user_id, username, and avatar
+        $posts->load('user:id,username,avatar');
+        
+        return $posts;
+    }
 }
