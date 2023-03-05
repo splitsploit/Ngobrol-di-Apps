@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Follow;
 use Illuminate\Http\Request;
+use App\Events\OurExampleEvent;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -58,6 +59,7 @@ class UserController extends Controller
         if (auth()->attempt(['username' => $data['loginusername'], 'password' => $data['loginpassword']]))
         {
             $request->session()->regenerate();
+            event(new OurExampleEvent(['username' => auth()->user()->username, 'action' => 'login']));
             return redirect('/')->with('success', "Anda Berhasil Login!");
         } else {
             return redirect('/')->with('error', 'Login Gagal, Harap Periksa Lagi Username / Password!');
@@ -66,6 +68,7 @@ class UserController extends Controller
 
     public function logout()
     {
+        event(new OurExampleEvent(['username' => auth()->user()->username, 'action' => 'logout']));
         Auth::logout();
 
         return redirect('/')->with('success', 'Anda Berhasil Logout!');
