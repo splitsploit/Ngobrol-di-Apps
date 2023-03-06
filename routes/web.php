@@ -1,10 +1,12 @@
 <?php
 
-use App\Http\Controllers\FollowController;
+use App\Events\ChatMessage;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Request;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FollowController;
 
 
 Route::get('admins-only', function() {
@@ -40,3 +42,24 @@ Route::get('/profile/{user:username}/followings', [UserController::class, 'profi
 // lookup user by username, not an id
 Route::post('/create-follow/{user:username}', [FollowController::class, 'createFollow'])->middleware('mustBeLoggedIn');
 Route::post('/remove-follow/{user:username}', [FollowController::class, 'removeFollow'])->middleware('mustBeLoggedIn');
+
+// Chat Routes
+Route::post('/send-chat-message', function(Request $request) {
+    $formFields = $request->validate([
+        'textvalue' => 'required',
+    ]);
+
+    if (!trim(strip_tags($formFields['textvalue']))) {
+        return response()->noContent();
+    }
+
+    broadcast(new ChatMessage(
+        [
+            'username' => auth()->user()->username, 
+            'textvalue' => strip_tags($request->textvalue), 
+            'avatar' => auth()->user()->avatar,
+        ]))->toOthers();
+    
+    return response()->noContent();
+
+})->middleware('mustBeLoggedIn');
