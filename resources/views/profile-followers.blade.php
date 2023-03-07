@@ -2,12 +2,5 @@
     @section('title')
       Followers
     @endsection
-  <div class="list-group">
-    @foreach ($followers as $follow)
-      <a href="/profile/{{ $follow->userDoingTheFollowing->username}}" class="list-group-item list-group-item-action">
-        <img class="avatar-tiny" src="{{ $follow->userDoingTheFollowing->avatar }}" />
-        {{ $follow->userDoingTheFollowing->username }}
-      </a>
-    @endforeach
-  </div>
+    @include('profile-followers-only')
 </x-profile>
