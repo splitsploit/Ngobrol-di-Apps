@@ -104,13 +104,7 @@ class UserController extends Controller
     }
 
     public function profileRaw(User $user) {
-        return response()->json([
-            'theHtml' => view('profile-posts-only', 
-            [
-                'posts' => $user->posts()->latest()->get()
-            ])->render(),
-            'docTitle' => $user->username . "'s, Profile",
-        ]);
+        return response()->json(['theHTML' => view('profile-posts-only', ['posts' => $user->posts()->latest()->get()])->render(), 'docTitle' => $user->username . "'s Profile"]);
     }
 
     public function profileFollowers(User $user) {
@@ -127,13 +121,7 @@ class UserController extends Controller
     }
 
     public function profileFollowersRaw(User $user) {
-        return response()->json([
-            'theHtml' => view('profile-followers-only', 
-            [
-                'followers' => $user->followers()->latest()->get()
-            ])->render(),
-            'docTitle' => $user->username . "'s, Followers",
-        ]);
+        return response()->json(['theHTML' => view('profile-followers-only', ['followers' => $user->followers()->latest()->get()])->render(), 'docTitle' => $user->username . "'s Followers"]);
     }
 
     public function profileFollowings(User $user) {
@@ -148,13 +136,7 @@ class UserController extends Controller
     }
 
     public function profileFollowingsRaw(User $user) {
-        return response()->json([
-            'theHtml' => view('profile-followings-only', 
-            [
-                'followings' => $user->followingTheseUsers()->latest()->get()
-            ])->render(),
-            'docTitle' => $user->username . "'s, Followings",
-        ]);
+        return response()->json(['theHTML' => view('profile-followings-only', ['followings' => $user->followingTheseUsers()->latest()->get()])->render(), 'docTitle' => 'Who ' . $user->username . " Follows"]);
     }
 
     public function showAvatarForm() {

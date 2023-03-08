@@ -38,9 +38,11 @@ Route::get('/profile/{user:username}/followers', [UserController::class, 'profil
 Route::get('/profile/{user:username}/followings', [UserController::class, 'profileFollowings']);
 
 // profile routes, return JSON
-Route::get('/profile/{user:username}/raw', [UserController::class, 'profileRaw']);
-Route::get('/profile/{user:username}/followers/raw', [UserController::class, 'profileFollowersRaw']);
-Route::get('/profile/{user:username}/followings/raw', [UserController::class, 'profileFollowingsRaw']);
+Route::middleware('cache.headers:public;max_age=20;etag')->group(function () {
+    Route::get('/profile/{user:username}/raw', [UserController::class, 'profileRaw']);
+    Route::get('/profile/{user:username}/followers/raw', [UserController::class, 'profileFollowersRaw']);
+    Route::get('/profile/{user:username}/followings/raw', [UserController::class, 'profileFollowingsRaw']);
+});
 
 // Follow / Following Routes
 
