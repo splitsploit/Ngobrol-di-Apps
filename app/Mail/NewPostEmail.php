@@ -33,7 +33,7 @@ class NewPostEmail extends Mailable
     {
         return new Content(
             view: 'new-post-email',
-            with: ['title' => $this->data['title'], 'body' => $this->data['body']]
+            with: ['title' => $this->data['title'], 'name' => $this->data['name']]
         );
     }
 }

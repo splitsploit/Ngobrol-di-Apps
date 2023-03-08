@@ -29,7 +29,7 @@ class PostController extends Controller
 
         $newPost = Post::create($data);
 
-        Mail::to('test@google.com')->send(new NewPostEmail($data));
+        Mail::to(auth()->user()->email)->send(new NewPostEmail(['name' => auth()->user()->username, 'title' => $newPost->title]));
         
         return redirect("post/{$newPost->id}")->with('success', 'Postingan Berhasil Dipublish!');
     }
