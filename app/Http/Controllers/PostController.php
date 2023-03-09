@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendNewPostEmail;
 use App\Models\Post;
 use App\Mail\NewPostEmail;
 use Illuminate\Support\Str;
@@ -29,7 +30,7 @@ class PostController extends Controller
 
         $newPost = Post::create($data);
 
-        Mail::to(auth()->user()->email)->send(new NewPostEmail(['name' => auth()->user()->username, 'title' => $newPost->title]));
+        dispatch(new SendNewPostEmail(['sendTo' => auth()->user()->email, 'name' => auth()->user()->username, 'title' => $newPost->title]));
         
         return redirect("post/{$newPost->id}")->with('success', 'Postingan Berhasil Dipublish!');
     }
