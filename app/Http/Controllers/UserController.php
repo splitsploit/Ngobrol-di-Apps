@@ -24,14 +24,15 @@ class UserController extends Controller
             return view('homepage-feed', ['posts' => Auth::user()->feedPosts()->latest()->paginate(5)]);
         } else {
 
-            if (Cache::has('postCount')) {
-                $postCount = Cache::get('postCount');
-            } else {
-                sleep(5);
-                $postCount = Post::count();
-                Cache::put('postCount', $postCount, 60);
-            }
-
+            // Cache remember has 3 param : 
+            // 1 -> variable, 
+            // 2 -> cache duration, 
+            // 3 -> function if the data does not exists in cache
+            $postCount = Cache::remember('postCount', 60, function () {
+                sleep(2);
+                return Post::count();
+            });
+            
             return view('homepage', 
             [
                 'postCount' => Post::count(),
