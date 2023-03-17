@@ -78,6 +78,18 @@ class PostController extends Controller
         return redirect('/profile/' . auth()->user()->username)->with('success', 'Berhasil Hapus Post!');
     }
 
+    public function deleteAPI(Post $post) {
+        
+        // delete post using PostPolicy ( cannot method )
+        // if(auth()->user()->cannot('delete', $post)) {
+        //     return "Hanya Pembuat Post Yang Boleh Menghapus!";
+        // }
+
+        $post->delete();
+
+        return 'Post Successfully Deleted!';
+    }
+
     public function edit(Post $post) {
         return view('edit-post', compact('post'));
     }
