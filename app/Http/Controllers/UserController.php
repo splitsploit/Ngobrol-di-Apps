@@ -58,6 +58,22 @@ class UserController extends Controller
         return redirect('/')->with('success', 'Daftar Akun Berhasil!. Selamat Berkomunikasi di Ngobrol di Apps!');
     }
 
+
+    public function loginAPI(Request $request) {
+        $data = $request->validate([
+            'username' => 'required',
+            'password' => 'required'
+        ]);
+
+        if (auth()->attempt($data)) {
+            $user = User::where('username', $data['username'])->first();
+            $token = $user->createToken('ourapptoken')->plainTextToken;
+            return $token;
+        }
+
+        return 'Wrong Username / Password';
+    }
+
     public function login(Request $request)
     {
         $data = $request->validate([
