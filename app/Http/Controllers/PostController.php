@@ -35,6 +35,24 @@ class PostController extends Controller
         return redirect("post/{$newPost->id}")->with('success', 'Postingan Berhasil Dipublish!');
     }
 
+    public function storeNewPostAPI(Request $request)
+    {
+        $data = $request->validate([
+            'title' => 'required',
+            'body' => 'required',
+        ]);
+
+        $data['title'] = strip_tags($data['title']);
+        $data['body'] = strip_tags($data['body']);
+        $data['user_id'] = Auth::id();
+
+        $newPost = Post::create($data);
+
+        dispatch(new SendNewPostEmail(['sendTo' => auth()->user()->email, 'name' => auth()->user()->username, 'title' => $newPost->title]));
+        
+        return $newPost->id;
+    }
+
     public function viewSinglePost(Post $post)
     {
         // check author or not ( at post )
