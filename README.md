@@ -25,5 +25,8 @@ Ngobrol di Apps is an Social Media version lite, which has many features like li
 - Laravel 10
 - Vanilla JS
 - Mailtrap ( as Mail Dump )
+- Bootstrap 5
+- Pusher JS & Socket
+- Jquery
 
 #### Feel Free To Use It. Support me by share this apps or be my sponsorship.
