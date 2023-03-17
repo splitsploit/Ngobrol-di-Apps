@@ -29,7 +29,7 @@ class UserController extends Controller
             // 2 -> cache duration, 
             // 3 -> function if the data does not exists in cache
             $postCount = Cache::remember('postCount', 60, function () {
-                sleep(2);
+                // sleep(2);
                 return Post::count();
             });
             
